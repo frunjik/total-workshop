@@ -7,17 +7,18 @@
 		<button class="exec" data-exec="?/create" title="@(Create directory)"><i class="fa fa-folder-plus"></i></button>
 		<button class="exec" data-exec="?/search" title="@(Search)"><i class="fa fa-search"></i></button>
 		<button class="highlight exec" data-exec="?/upload" title="@(Upload file to the current directory)"><i class="fa fa-cloud-upload"></i></button>
+
 	</div>
 
 	<div class="breadcrumb" data-bind="?.breadcrumb__template">
-		<script type="text/html">
-			{{ foreach m in value }}
-				<span data-path="{{ m.path }}" class="exec{{ if m.selected }} b{{ fi }} directory" data-exec="?/path">{{ m.name | empty('Root') }}</span>
-				{{ if !m.selected }}
-				<i class="fas fa-angle-right"></i>
-				{{ fi }}
-			{{ end }}
-		</script>
+	<script type="text/html">
+		{{ foreach m in value }}
+			<span data-path="{{ m.path }}" class="exec{{ if m.selected }} b{{ fi }} directory" data-exec="?/path">{{ m.name | empty('Root') }}</span>
+			{{ if !m.selected }}
+			<i class="fas fa-angle-right"></i>
+			{{ fi }}
+		{{ end }}
+	</script>
 	</div>
 
 	<div data---="navlayout__common.menu__parent:window;width:350;hide:xs" class="invisible">
@@ -77,6 +78,7 @@
 		<main>
 			<div class="toolbar">
 				<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-cloud-upload"></i></button>
+				<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-cloud-upload"></i></button>
 				<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
 				<label data---="contenteditable__common.filename"></label>
 			</div>
@@ -99,7 +101,7 @@
 
 		SET('common.menu', true);
 		SET('common.filedata', '');
-		SET('common.filename', '');
+		SET('common.filename', '/public/parts/explorer.html');
 
 		exports.refresh = function() {
 
@@ -134,13 +136,22 @@
 			SETTER('floatinginput/show', opt);
 		};
 
-		exports.save = function(el) {
+		exports.save = function(el, cb) {
 			const filename = GET('common.filename');
 			filename && AJAX('POST /fs_save?path=' + encodeURIComponent(filename), {data: GET('common.filedata')}, function(value, err, response) {
 				if (err) {
 					console.error(err);
 				}
-				// exports.browse();
+				cb && cb(value, err, response);
+			});
+		};
+
+		exports.save_reload = function(el) {
+			exports.save(null, function(value, err, response) {
+				if (err) {
+					console.error(err);
+				}
+				window.location = '/';
 			});
 		};
 
@@ -325,7 +336,8 @@
 			});
 		};
 
-		exports.browse('/');
+		exports.browse('/public/parts/');
+		exports.load();
 
 	});
 </script>
