@@ -21,7 +21,7 @@
 	</script>
 	</div>
 
-	<div data---="navlayout__common.menu__parent:window;width:350;hide:xs" class="invisible">
+	<div data---="navlayout__?.menu__parent:window;width:350;hide:xs" class="invisible">
 
 		<section>
 
@@ -77,14 +77,14 @@
 
 		<main>
 			<div class="toolbar">
-				<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-cloud-upload"></i></button>
-				<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-cloud-upload"></i></button>
 				<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
-				<label data---="contenteditable__common.filename"></label>
+				<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-upload"></i></button>
+				<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-file-upload"></i></button>
+				<label data---="contenteditable__?.filename"></label>
 			</div>
 
 			<div style="width:100%">
-				<div data---="codemirror__common.filedata__type:htmlmixed;required:false;height:880"></div>
+				<div data---="codemirror__?.filedata__type:htmlmixed;required:false;height:880"></div>
 			</div>
 
 		</main>
@@ -97,11 +97,11 @@
 
 	PLUGIN('~PATH~', function(exports) {
 
-		SET('~PATH~.view', 'list');
+		SET('?.view', 'list');
 
-		SET('common.menu', true);
-		SET('common.filedata', '');
-		SET('common.filename', '/public/parts/explorer.html');
+		SET('?.menu', true);
+		SET('?.filedata', '');
+		SET('?.filename', '/public/parts/explorer.html');
 
 		exports.refresh = function() {
 
@@ -137,8 +137,8 @@
 		};
 
 		exports.save = function(el, cb) {
-			const filename = GET('common.filename');
-			filename && AJAX('POST /fs_save?path=' + encodeURIComponent(filename), {data: GET('common.filedata')}, function(value, err, response) {
+			const filename = GET('?.filename');
+			filename && AJAX('POST /fs_save?path=' + encodeURIComponent(filename), {data: GET('?.filedata')}, function(value, err, response) {
 				if (err) {
 					console.error(err);
 				}
@@ -156,11 +156,11 @@
 		};
 
 		exports.load = function(el) {
-			AJAX('GET /fs_load?path=' + encodeURIComponent(GET('common.filename')), function(value, err, response) {
+			AJAX('GET /fs_load?path=' + encodeURIComponent(GET('?.filename')), function(value, err, response) {
 				if (err) {
 					console.error(err);
 				} else {
-					SET('common.filedata', (value ? value.value : value) || '');
+					SET('?.filedata', (value ? value.value : value) || '');
 				}
 			});
 		};
@@ -171,7 +171,7 @@
 			if (isdir)
 				exports.browse(path);
 			else {
-				SET('common.filename', path);
+				SET('?.filename', path);
 				exports.load();
 			}
 		};
@@ -184,7 +184,7 @@
 		exports.settings = function() {
 			DAPI('settings_read @showloading', ASETTER('message/response @hideloading', function(response) {
 				SET('settingsform @reset', response);
-				SET('common.form', 'settingsform');
+				SET('?.form', 'settingsform');
 			}));
 		};
 
@@ -256,7 +256,7 @@
 				if (item.isdirectory)
 					exports.browse(item.path);
 				else {
-					SET('common.filename', item.path);
+					SET('?.filename', item.path);
 					exports.load();
 				}
 			};
@@ -332,7 +332,7 @@
 			UPLOAD('POST /api/upload/ @showloading', data, ASETTER('message/response', function() {
 				exports.browse(model.path);
 			}), function(progress) {
-				SET('common.progress', progress);
+				SET('?.progress', progress);
 			});
 		};
 
