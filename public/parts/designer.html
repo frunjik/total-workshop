@@ -78,22 +78,18 @@
 
 		<main>
 
-			<div class="toolbar">
-				<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
-				<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-upload"></i></button>
-				<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-file-upload"></i></button>
-				<label data---="contenteditable__?.filename"></label>
-			</div>
-
 			<div data---="rows__null__parent:window" class="hidden invisible">
-				<section data-size="33%">Top panel</section>
-
+				<section data-size="60%">Top panel</section>
 				<section>
+					<div class="toolbar">
+						<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
+						<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-upload"></i></button>
+						<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-file-upload"></i></button>
+						<label data---="contenteditable__?.filename"></label>
+					</div>
 					<div style="width:100%">
 						<div data---="codemirror__?.filedata__type:htmlmixed;required:false;height:800"></div>
 					</div>
-				</section>
-				<section data-size="33%">
 				</section>
 			</div>
 
