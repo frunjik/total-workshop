@@ -27,7 +27,14 @@
 	<div data---="loading" class="hidden"></div>
 	<div data---="shortcuts"></div>
 
-	<div data---="part__common.page__if:browser;url:/parts/browser.html"></div>
+	<nav>
+		<a href="/" class="R"> Main </a>
+		<a href="/designer" class="R">| Designs </a>
+		<a href="/explorer" class="R">| Edit </a>
+	</nav>
+
+	<div data---="part__common.page__if:main;url:/parts/browser.html"></div>
+	<div data---="part__common.page__if:browse;url:/parts/browser.html"></div>
 	<div data---="part__common.page__if:explorer;url:/parts/explorer.html"></div>
 	<div data---="part__common.page__if:designer;url:/parts/designer.html"></div>
 
@@ -38,15 +45,14 @@
 	@{json(user, 'userdata')}
 
 	<script>
-
-		DEF.api = '/api/';
-
-		var user = PARSE('#userdata');
 		var common = {};
 
+		DEF.api = '/api/';
+		NAV.clientside('.R');
 		ENV('ts', 'yyyy-MM-mm HH:mm');
-		// common.page = 'browser';
-		// common.page = 'explorer';
+
+		var user = PARSE('#userdata');
+
 		common.page = 'designer';
 
 		ON('@flag showloading', function() {
@@ -56,6 +62,19 @@
 		ON('@flag hideloading', function() {
 			SETTER('loading/hide', 500);
 		});
+
+		ROUTE('/', function() {
+			SET('common.page', 'main');
+		});
+
+		ROUTE('/explorer/', function() {
+			SET('common.page', 'explorer');
+		});
+
+		ROUTE('/designer/', function() {
+			SET('common.page', 'designer');
+		});
+
 
 		SETTER(true, 'shortcuts/register', 'F1', AEXEC('browser/search'));
 		SETTER(true, 'shortcuts/register', 'F4', AEXEC('explorer/save'));
