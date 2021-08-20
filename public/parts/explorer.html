@@ -1,13 +1,14 @@
 <div data-scope="~PATH~">
 
 	<div class="toolbar">
+		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/toggle" data-name="browse" title="@(Browse)"><i class="fas fa-bars"></i></button>
+		<hr />
 		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/view" data-name="list" title="@(Show as list)"><i class="fas fa-list"></i></button>
 		<button data-bind="?.view__.selected:value==='icons'" class="exec" data-exec="?/view" data-name="icons" title="@(Show as icons)"><i class="fas fa-th"></i></button>
 		<hr />
 		<button class="exec" data-exec="?/create" title="@(Create directory)"><i class="fa fa-folder-plus"></i></button>
 		<button class="exec" data-exec="?/search" title="@(Search)"><i class="fa fa-search"></i></button>
 		<button class="highlight exec" data-exec="?/upload" title="@(Upload file to the current directory)"><i class="fa fa-cloud-upload"></i></button>
-
 	</div>
 
 	<div class="breadcrumb" data-bind="?.breadcrumb__template">
@@ -108,6 +109,10 @@
 		};
 
 		exports.breadcrumb = function(path) {
+		};
+
+		exports.toggle = function(path) {
+			SET('common.page', 'browser');
 		};
 
 		exports.upload = function() {
