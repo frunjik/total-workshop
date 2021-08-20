@@ -1,27 +1,5 @@
 <div data-scope="~PATH~">
 
-	<div class="toolbar">
-		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/edit" data-name="browse" title="@(Browse)"><i class="fas fa-bars"></i></button>
-		<hr />
-		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/view" data-name="list" title="@(Show as list)"><i class="fas fa-list"></i></button>
-		<button data-bind="?.view__.selected:value==='icons'" class="exec" data-exec="?/view" data-name="icons" title="@(Show as icons)"><i class="fas fa-th"></i></button>
-		<hr />
-		<button class="exec" data-exec="?/create" title="@(Create directory)"><i class="fa fa-folder-plus"></i></button>
-		<button class="exec" data-exec="?/search" title="@(Search)"><i class="fa fa-search"></i></button>
-		<button class="highlight exec" data-exec="?/upload" title="@(Upload file to the current directory)"><i class="fa fa-cloud-upload"></i></button>
-	</div>
-
-	<div class="breadcrumb" data-bind="?.breadcrumb__template">
-	<script type="text/html">
-		{{ foreach m in value }}
-			<span data-path="{{ m.path }}" class="exec{{ if m.selected }} b{{ fi }} directory" data-exec="?/path">{{ m.name | empty('Root') }}</span>
-			{{ if !m.selected }}
-			<i class="fas fa-angle-right"></i>
-			{{ fi }}
-		{{ end }}
-	</script>
-	</div>
-
 	<div data---="navlayout__?.menu__parent:window;width:350;hide:xs" class="invisible">
 
 		<section>
@@ -78,21 +56,15 @@
 
 		<main>
 
-			<div data---="rows__null__parent:window" class="hidden invisible">
-				<section data-size="60%">Top panel</section>
-				<section>
-					<div class="toolbar">
-						<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
-						<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-upload"></i></button>
-						<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-file-upload"></i></button>
-						<label data---="contenteditable__?.filename"></label>
-					</div>
-					<div style="width:100%">
-						<div data---="codemirror__?.filedata__type:htmlmixed;required:false;height:800"></div>
-					</div>
-				</section>
+			<div class="toolbar">
+				<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
+				<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-upload"></i></button>
+				<button class="exec" data-exec="?/save_reload" title="@(Save and reload file)"><i class="fa fa-file-upload"></i></button>
+				<label data---="contenteditable__?.filename"></label>
 			</div>
-
+			<div style="width:100%">
+				<div data---="codemirror__?.filedata__type:htmlmixed;required:false;height:900"></div>
+			</div>
 		</main>
 
 	</div>
@@ -104,14 +76,9 @@
 	PLUGIN('~PATH~', function(exports) {
 
 		SET('?.view', 'list');
-
 		SET('?.menu', true);
 
 		exports.refresh = function() {
-
-		};
-
-		exports.breadcrumb = function(path) {
 		};
 
 		exports.edit = function(path) {
