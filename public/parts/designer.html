@@ -1,7 +1,7 @@
 <div data-scope="~PATH~">
 
 	<div class="toolbar">
-		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/toggle" data-name="browse" title="@(Browse)"><i class="fas fa-bars"></i></button>
+		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/edit" data-name="browse" title="@(Browse)"><i class="fas fa-bars"></i></button>
 		<hr />
 		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/view" data-name="list" title="@(Show as list)"><i class="fas fa-list"></i></button>
 		<button data-bind="?.view__.selected:value==='icons'" class="exec" data-exec="?/view" data-name="icons" title="@(Show as icons)"><i class="fas fa-th"></i></button>
@@ -77,6 +77,7 @@
 		</section>
 
 		<main>
+
 			<div class="toolbar">
 				<button class="exec" data-exec="?/load" title="@(Load file)"><i class="fa fa-cloud-download"></i></button>
 				<button class="exec" data-exec="?/save" title="@(Save file)"><i class="fa fa-upload"></i></button>
@@ -84,9 +85,16 @@
 				<label data---="contenteditable__?.filename"></label>
 			</div>
 
-			<div style="width:100%">
-				<div data---="codemirror__?.filedata__type:htmlmixed;required:false;height:880"></div>
+			<div data---="rows__null__parent:window" class="hidden invisible">
+				<section data-size="33%">Top panel</section>
+				<section>Main</section>
+				<section data-size="33%">
+					<div style="width:100%">
+						<div data---="codemirror__?.filedata__type:htmlmixed;required:false"></div>
+					</div>
+				</section>
 			</div>
+
 
 		</main>
 
@@ -101,8 +109,6 @@
 		SET('?.view', 'list');
 
 		SET('?.menu', true);
-		SET('?.filedata', '');
-		SET('?.filename', '/public/parts/explorer.html');
 
 		exports.refresh = function() {
 
@@ -111,8 +117,8 @@
 		exports.breadcrumb = function(path) {
 		};
 
-		exports.toggle = function(path) {
-			SET('common.page', 'browser');
+		exports.edit = function(path) {
+			SET('common.page', 'explorer');
 		};
 
 		exports.upload = function() {
@@ -342,6 +348,9 @@
 		};
 
 		exports.browse('/public/parts/');
+
+		SET('?.filedata', '');
+		SET('?.filename', '/public/parts/designer.html');
 		exports.load();
 
 	});

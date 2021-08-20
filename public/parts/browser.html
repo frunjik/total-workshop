@@ -1,7 +1,7 @@
 <div data-scope="~PATH~">
 
 	<div class="toolbar">
-		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/toggle" data-name="browse" title="@(Browse)"><i class="fas fa-bars"></i></button>
+		<button data-bind="?.view__.selected:value==='list'" class="exec" data-exec="?/edit" data-name="browse" title="@(Browse)"><i class="fas fa-bars"></i></button>
 		<hr />
 		<button class="highlight exec" data-exec="?/upload" title="@(Upload file to the current directory)"><i class="fa fa-cloud-upload"></i></button>
 		<button class="exec" data-exec="?/create" title="@(Create directory)"><i class="fa fa-folder-plus"></i></button>
@@ -85,7 +85,7 @@
 		exports.breadcrumb = function(path) {
 		};
 
-		exports.toggle = function(path) {
+		exports.edit = function(path) {
 			SET('common.page', 'explorer');
 		};
 

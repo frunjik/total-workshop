@@ -29,6 +29,7 @@
 
 	<div data---="part__common.page__if:browser;url:/parts/browser.html"></div>
 	<div data---="part__common.page__if:explorer;url:/parts/explorer.html"></div>
+	<div data---="part__common.page__if:designer;url:/parts/designer.html"></div>
 
 	@{if user.sa}
 	<div data---="importer__common.form__if:settingsform;url:/forms/settings.html"></div>
@@ -45,7 +46,8 @@
 
 		ENV('ts', 'yyyy-MM-mm HH:mm');
 		// common.page = 'browser';
-		common.page = 'explorer';
+		// common.page = 'explorer';
+		common.page = 'designer';
 
 		ON('@flag showloading', function() {
 			SETTER('loading/show');
