@@ -1,0 +1,9 @@
+name                             : Files
+allow_custom_titles              : true
+
+// Used for share link
+url                              : localhost:8000
+
+// Path to root of fs
+path                             : /
+secret_download      (generate)  : 30
