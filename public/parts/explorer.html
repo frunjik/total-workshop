@@ -101,8 +101,6 @@
 		SET('?.view', 'list');
 
 		SET('?.menu', true);
-		SET('?.filedata', '');
-		SET('?.filename', '/public/parts/explorer.html');
 
 		exports.refresh = function() {
 
@@ -152,7 +150,7 @@
 		};
 
 		exports.save_reload = function(el) {
-			exports.save(null, function(value, err, response) {
+			exports.save(null, null, function(value, err, response) {
 				if (err) {
 					console.error(err);
 				}
@@ -340,6 +338,9 @@
 				SET('?.progress', progress);
 			});
 		};
+
+		SET('?.filedata', '');
+		SET('?.filename', '/public/parts/explorer.html');
 
 		exports.browse('/public/parts/');
 		exports.load();

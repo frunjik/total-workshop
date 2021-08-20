@@ -152,7 +152,7 @@
 		};
 
 		exports.save_reload = function(el) {
-			exports.save(null, function(value, err, response) {
+			exports.save(null, null, function(value, err, response) {
 				if (err) {
 					console.error(err);
 				}
