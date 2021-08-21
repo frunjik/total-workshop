@@ -33,6 +33,17 @@
 		<hr />
 	</div>
 
+	<div class="breadcrumb" data-bind="?.breadcrumb__template">
+	<script type="text/html">
+		{{ foreach m in value }}
+			<span data-path="{{ m.path }}" class="exec{{ if m.selected }} b{{ fi }} directory" data-exec="?/path">{{ m.name | empty('Root') }}</span>
+			{{ if !m.selected }}
+			<i class="fas fa-angle-right"></i>
+			{{ fi }}
+		{{ end }}
+	</script>
+	</div>
+	
 	<div data---="drawer__common.sidemenu__if:open;align:left" class="hidden">
 		<button class="exec" data-exec="openPage" name="main" ><i class="fa fa-bars"></i>Main</button>
 		<button class="exec" data-exec="openPage" name="designer" ><i class="fa fa-star"></i>Designer</button>
@@ -68,7 +79,7 @@
 
 		var user = PARSE('#userdata');
 
-		common.page = 'designer';
+		common.page = 'explorer';
 		common.editor = 'editor';
 		common.sidemenu = 'closed';
 

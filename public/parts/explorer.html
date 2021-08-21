@@ -1,3 +1,6 @@
+<style>
+	.toolbar > a {margin-right:5px;margin-left:5px;}
+</style>
 <div data-scope="~PATH~">
 
 	<div class="toolbar">
@@ -9,22 +12,33 @@
 		<button class="exec" data-exec="?/create" title="@(Create directory)"><i class="fa fa-folder-plus"></i></button>
 		<button class="exec" data-exec="?/search" title="@(Search)"><i class="fa fa-search"></i></button>
 		<button class="highlight exec" data-exec="?/upload" title="@(Upload file to the current directory)"><i class="fa fa-cloud-upload"></i></button>
+		<hr />
 	</div>
 
-	<div class="breadcrumb" data-bind="?.breadcrumb__template">
-	<script type="text/html">
-		{{ foreach m in value }}
-			<span data-path="{{ m.path }}" class="exec{{ if m.selected }} b{{ fi }} directory" data-exec="?/path">{{ m.name | empty('Root') }}</span>
-			{{ if !m.selected }}
-			<i class="fas fa-angle-right"></i>
-			{{ fi }}
-		{{ end }}
-	</script>
-	</div>
-
-	<div data---="navlayout__?.menu__parent:window;width:350;hide:xs" class="invisible">
+	<div data---="navlayout__null__parent:window;width:350;hide:xs" class="invisible">
 
 		<section>
+
+			<div class="toolbar">
+				<a data-path="/" data-exec="?/path" class="exec directory">/root</a>
+				<a data-path="/views" data-exec="?/path" class="exec directory">/views</a>
+				<a data-path="/public/parts" data-exec="?/path" class="exec directory">/parts</a>
+				<a data-path="/views/index.html" data-exec="?/path" class="exec">I</a>
+				<a data-path="/public/parts/designer.html" data-exec="?/path" class="exec">D</a>
+				<a data-path="/public/parts/explorer.html" data-exec="?/path" class="exec">E</a>
+			</div>
+
+			<div class="breadcrumb" data-bind="?.breadcrumb__template">
+				<script type="text/html">
+					{{ foreach m in value }}
+						<span data-path="{{ m.path }}" class="exec{{ if m.selected }} b{{ fi }} directory" data-exec="?/path">{{ m.name | empty('Root') }}</span>
+						{{ if !m.selected }}
+						<i class="fas fa-angle-right"></i>
+						{{ fi }}
+					{{ end }}
+				</script>
+
+			</div>
 
 			<div data---="templates__?.items__parent:window;template:?.view;drop:?/drop;margin:90;contextmenu:?/contextmenu__[]">
 
@@ -100,10 +114,9 @@
 
 		SET('?.view', 'list');
 
-		SET('?.menu', true);
+		// SET('?.menu', true);
 
 		exports.refresh = function() {
-
 		};
 
 		exports.breadcrumb = function(path) {
@@ -111,6 +124,13 @@
 
 		exports.toggle = function(path) {
 			SET('common.page', 'browser');
+		};
+
+		exports.showfolder = function(e) {
+			const name = e[0].name;
+			SETTER('?.path', name);
+			exports.browse();
+			console.log(name);
 		};
 
 		exports.upload = function() {
@@ -340,7 +360,7 @@
 		};
 
 		SET('?.filedata', '');
-		SET('?.filename', '/views/index.html');
+		SET('?.filename', '/public/parts/explorer.html');
 		exports.load();
 		exports.browse('/public/parts/');
 
