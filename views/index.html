@@ -43,7 +43,7 @@
 		{{ end }}
 	</script>
 	</div>
-	
+
 	<div data---="drawer__common.sidemenu__if:open;align:left" class="hidden">
 		<button class="exec" data-exec="openPage" name="main" ><i class="fa fa-bars"></i>Main</button>
 		<button class="exec" data-exec="openPage" name="designer" ><i class="fa fa-star"></i>Designer</button>
@@ -52,17 +52,15 @@
 		<a href="#"><i class="fa fa-trash-alt"></i>Trash</a>
 	</div>
 
-	<!-- <nav>
-		<a href="/" class="R"> Main </a>
-		<a href="/designer" class="R">| Designs </a>
-		<a href="/explorer" class="R">| Edit </a>
-	</nav> -->
+	<div data---="columns__null__parent:window" class="hidden invisible">
+		<section data-size="50%">
+			<div data---="part__common.page__if:explorer;url:/parts/explorer.html"></div>
+		</section>
+		<section data-size="50%">
+			<div data---="part__common.page__if:explorer;url:/parts/explorer.html"></div>
+		</section>
+	</div>
 
-	<div data---="part__common.page__if:main;url:/parts/browser.html"></div>
-	<div data---="part__common.page__if:browser;url:/parts/browser.html"></div>
-	<div data---="part__common.page__if:explorer;url:/parts/explorer.html"></div>
-	<div data---="part__common.page__if:designer;url:/parts/designer.html"></div>
-	<!-- <div data---="part__common.page__if:editor;url:/parts/editor.html"></div> -->
 
 	@{if user.sa}
 	<div data---="importer__common.form__if:settingsform;url:/forms/settings.html"></div>
