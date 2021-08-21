@@ -27,18 +27,31 @@
 	<div data---="loading" class="hidden"></div>
 	<div data---="shortcuts"></div>
 
-	<nav>
+
+	<div class="toolbar">
+		<button class="exec" data-exec="openSideMenu" data-name="sidemenu" title="@(sidemenu)"><i class="fas fa-bars"></i></button>
+		<hr />
+	</div>
+
+	<div data---="drawer__common.sidemenu__if:open;align:left" class="hidden">
+		<button class="exec" data-exec="openPage" name="main" ><i class="fa fa-bars"></i>Main</button>
+		<button class="exec" data-exec="openPage" name="designer" ><i class="fa fa-star"></i>Designer</button>
+		<button class="exec" data-exec="openPage" name="explorer" ><i class="fa fa-list"></i>Explorer</button>
+		<hr />
+		<a href="#"><i class="fa fa-trash-alt"></i>Trash</a>
+	</div>
+
+	<!-- <nav>
 		<a href="/" class="R"> Main </a>
 		<a href="/designer" class="R">| Designs </a>
 		<a href="/explorer" class="R">| Edit </a>
-	</nav>
+	</nav> -->
 
-	<div data---="part__common.editor__if:editor;url:/parts/editor.html"></div>
-
-	<!-- <div data---="part__common.page__if:main;url:/parts/browser.html"></div>
+	<div data---="part__common.page__if:main;url:/parts/browser.html"></div>
 	<div data---="part__common.page__if:browser;url:/parts/browser.html"></div>
 	<div data---="part__common.page__if:explorer;url:/parts/explorer.html"></div>
-	<div data---="part__common.page__if:designer;url:/parts/designer.html"></div> -->
+	<div data---="part__common.page__if:designer;url:/parts/designer.html"></div>
+	<!-- <div data---="part__common.page__if:editor;url:/parts/editor.html"></div> -->
 
 	@{if user.sa}
 	<div data---="importer__common.form__if:settingsform;url:/forms/settings.html"></div>
@@ -57,6 +70,7 @@
 
 		common.page = 'designer';
 		common.editor = 'editor';
+		common.sidemenu = 'closed';
 
 		ON('@flag showloading', function() {
 			SETTER('loading/show');
@@ -78,6 +92,14 @@
 			SET('common.page', 'designer');
 		});
 
+		function openSideMenu() {
+			SET('common.sidemenu', 'open')
+		}
+
+		function openPage(e) {
+			const name = e[0].name;
+			SET('common.page', name || 'main')
+		}
 
 		SETTER(true, 'shortcuts/register', 'F1', AEXEC('browser/search'));
 		SETTER(true, 'shortcuts/register', 'F4', AEXEC('explorer/save'));
